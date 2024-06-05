@@ -1,12 +1,14 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from dotenv import load_dotenv
 import csv
+import os
+
+load_dotenv()
 
 # Connect to the MongoDB client
-dev_client = MongoClient(
-    "mongodb+srv://techcouncil:2lfNFMZIjdfZJl2R@cluster0.h3kssoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
-db = dev_client["test"]
+client = MongoClient(os.getenv("PROD_DB_URL"))
+db = client["test"]
 meta_collection = db["meta"]
 users_collection = db["users"]
 
@@ -34,7 +36,7 @@ def parse_context(context_str):
 
 
 # Read the CSV file and update the database
-with open("users_context.csv", "r") as file:
+with open("contexts.csv", "r") as file:
     reader = csv.reader(file)
     for row in reader:
         phone_number = row[0]

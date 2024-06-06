@@ -1,11 +1,11 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
-prod_client = MongoClient(
-    "mongodb+srv://sukoon_user:Tcks8x7wblpLL9OA@cluster0.o7vywoz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
-dev_client = MongoClient(
-    "mongodb+srv://techcouncil:2lfNFMZIjdfZJl2R@cluster0.h3kssoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
+load_dotenv()
+
+prod_client = MongoClient(os.getenv("PROD_DB_URL"))
+dev_client = MongoClient(os.getenv("DEV_DB_URL"))
 prod_db = prod_client["test"]
 dev_db = dev_client["test"]
 

@@ -1,9 +1,10 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
-client = MongoClient(
-    "mongodb+srv://techcouncil:2lfNFMZIjdfZJl2R@cluster0.h3kssoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
+load_dotenv()
 
+client = MongoClient(os.getenv("PROD_DB_URL"))
 db = client["test"]
 users_collection = db["users"]
 experts_collection = db["experts"]
@@ -16,5 +17,3 @@ for user in list(users_collection.find({"isBusy": True})):
         expert["isBusy"] = False
         experts_collection.update_one({"_id": expert["_id"]}, {"$set": expert})
         print(f"Set isBusy to False for expert {expert['name']}")
-
-

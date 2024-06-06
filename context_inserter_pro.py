@@ -1,11 +1,13 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from dotenv import load_dotenv
 import csv
+import os
 
-# Connect to the MongoDB client
-dev_client = MongoClient(
-    "mongodb+srv://techcouncil:2lfNFMZIjdfZJl2R@cluster0.h3kssoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
+load_dotenv()
+
+# Database connection
+dev_client = MongoClient(os.getenv("DEV_DB_URL"))
 db = dev_client["test"]
 meta_collection = db["meta"]
 users_collection = db["users"]

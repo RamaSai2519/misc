@@ -1,9 +1,11 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Connect to the MongoDB client
-dev_client = MongoClient(
-    "mongodb+srv://techcouncil:2lfNFMZIjdfZJl2R@cluster0.h3kssoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
+dev_client = MongoClient(os.getenv("DEV_DB_URL"))
 db = dev_client["test"]
 meta_collection = db["meta"]
 

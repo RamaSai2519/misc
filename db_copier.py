@@ -12,11 +12,14 @@ dev_db = dev_client["test"]
 prod_collections = list(prod_db.list_collection_names())
 
 for collection_name in prod_collections:
-    if collection_name == "schedules":
+    if collection_name == "calls":
         prod_collection = prod_db.get_collection(collection_name)
         dev_collection = dev_db.get_collection(collection_name)
         dev_collection.drop()
         print(f"Copying {collection_name} from prod to dev")
         documents = list(prod_collection.find())
-        for document in documents:
+        total_documents = len(documents)
+        for index, document in enumerate(documents):
             dev_collection.insert_one(document)
+            percentage = (index + 1) / total_documents * 100
+            print(f"Progress: {percentage:.2f}%")

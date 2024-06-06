@@ -13,7 +13,6 @@ calls = list(calls_collection.find())
 
 def format_duration(time_str):
     hours, minutes, seconds = map(int, time_str.split(":"))
-    print(f"{time_str} -> {hours * 3600 + minutes * 60 + seconds}")
     return hours * 3600 + minutes * 60 + seconds
 
 

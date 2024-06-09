@@ -13,6 +13,7 @@ calls = list(calls_collection.find())
 
 for call in calls:
     if callsmeta_collection.find_one({"callId": call["callId"]}):
+        print(f"Call {call['callId']} already exists in callsmeta collection")
         continue
     elif "Conversation Score" in call:
         callId = call["callId"] if "callId" in call else ""

@@ -1,14 +1,6 @@
-from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
+from config import devcalls_collection
 
-load_dotenv()
-
-dev_client = MongoClient(os.getenv("PROD_DB_URL"))
-db = dev_client["test"]
-calls_collection = db["calls"]
-
-calls = list(calls_collection.find())
+calls = list(devcalls_collection.find())
 
 
 def convert_duration(time_str):

@@ -1,13 +1,4 @@
-from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-prod_client = MongoClient(os.getenv("PROD_DB_URL"))
-dev_client = MongoClient(os.getenv("DEV_DB_URL"))
-prod_db = prod_client["test"]
-dev_db = dev_client["test"]
+from config import prod_db, dev_db
 
 prod_collections = list(prod_db.list_collection_names())
 

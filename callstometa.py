@@ -1,18 +1,9 @@
-from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
+from config import prodcalls_collection, prodcallsmeta_collection
 
-load_dotenv()
-
-prod_client = MongoClient(os.getenv("PROD_DB_URL"))
-prod_db = prod_client["test"]
-calls_collection = prod_db["calls"]
-callsmeta_collection = prod_db["callsmeta"]
-
-calls = list(calls_collection.find())
+calls = list(prodcalls_collection.find())
 
 for call in calls:
-    if callsmeta_collection.find_one({"callId": call["callId"]}):
+    if prodcallsmeta_collection.find_one({"callId": call["callId"]}):
         print(f"Call {call['callId']} already exists in callsmeta collection")
         continue
     elif "Conversation Score" in call:
@@ -33,7 +24,7 @@ for call in calls:
         topics = call["Topics"] if "Topics" in call else ""
         summary = call["Summary"] if "Summary" in call else ""
         transcript_url = call["transcript_url"] if "transcript_url" in call else ""
-        callsmeta_collection.insert_one(
+        prodcallsmeta_collection.insert_one(
             {
                 "callId": callId,
                 "user": user,

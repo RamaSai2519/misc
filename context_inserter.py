@@ -1,16 +1,6 @@
-from pymongo import MongoClient
-from bson.objectid import ObjectId
-from dotenv import load_dotenv
+from config import produsers_collection, prodmeta_collection
 import csv
-import os
-
-load_dotenv()
-
-# Connect to the MongoDB client
-client = MongoClient(os.getenv("PROD_DB_URL"))
-db = client["test"]
-meta_collection = db["meta"]
-users_collection = db["users"]
+from bson import ObjectId
 
 
 # Function to parse the context string and separate 'Source' field
@@ -40,14 +30,14 @@ with open("contexts.csv", "r") as file:
     reader = csv.reader(file)
     for row in reader:
         phone_number = row[0]
-        user = users_collection.find_one({"phoneNumber": phone_number})
+        user = produsers_collection.find_one({"phoneNumber": phone_number})
         user_id = user["_id"] if user else None
         if user:
             context, source = parse_context(row[1])
             document = {"user": ObjectId(user_id), "context": context}
             if source:
                 document["source"] = source
-            meta_collection.insert_one(document)
+            prodmeta_collection.insert_one(document)
             print(f"Updated context for {phone_number}")
         else:
             print(f"User with phone number {phone_number} not found")

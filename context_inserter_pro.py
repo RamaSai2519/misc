@@ -1,16 +1,6 @@
-from pymongo import MongoClient
-from bson.objectid import ObjectId
-from dotenv import load_dotenv
+from config import devusers_collection, devmeta_collection
 import csv
-import os
-
-load_dotenv()
-
-# Database connection
-dev_client = MongoClient(os.getenv("DEV_DB_URL"))
-db = dev_client["test"]
-meta_collection = db["meta"]
-users_collection = db["users"]
+from bson import ObjectId
 
 
 # Function to convert context string to dictionary
@@ -29,12 +19,12 @@ with open("users_context.csv", "r") as file:
     reader = csv.reader(file)
     for row in reader:
         phone_number = row[0]
-        user = users_collection.find_one({"phoneNumber": phone_number})
+        user = devusers_collection.find_one({"phoneNumber": phone_number})
         user_id = user["_id"] if user else None
         if user:
             context_dict = parse_context(row[1])
             context_dict["user"] = ObjectId(user_id)
-            meta_collection.insert_one(context_dict)
+            devmeta_collection.insert_one(context_dict)
             print(f"Updated context for {phone_number}")
         else:
             print(f"User with phone number {phone_number} not found")

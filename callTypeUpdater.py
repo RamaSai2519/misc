@@ -1,20 +1,8 @@
-from pymongo import MongoClient
+from config import prodschedules_collection, prodcalls_collection
 from datetime import timedelta
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-# Database connection
-prod_client = MongoClient(os.getenv("PROD_DB_URL"))
-
-# Database and collections
-db = prod_client["test"]
-schedules_collection = db["schedules"]
-calls_collection = db["calls"]
 
 # Find all schedules
-schedules = list(schedules_collection.find())
+schedules = list(prodschedules_collection.find())
 
 for schedule in schedules:
     schedule_user = schedule["user"]
@@ -25,7 +13,7 @@ for schedule in schedules:
 
     # Find calls for the same user and expert within a small time window around the schedule time
     calls = list(
-        calls_collection.find(
+        prodcalls_collection.find(
             {
                 "user": schedule_user,
                 "expert": schedule_expert,
@@ -38,13 +26,13 @@ for schedule in schedules:
     )
 
     if calls:
-        schedules_collection.update_one(
+        prodschedules_collection.update_one(
             {"_id": schedule["_id"]}, {"$set": {"status": "successful"}}
         )
         for call in calls:
             # Update the call type in the database
             call_type = "scheduled"
-            calls_collection.update_one(
+            prodcalls_collection.update_one(
                 {"_id": call["_id"]}, {"$set": {"type": call_type}}
             )
             print(f"Updated call type for call initiated at {call['initiatedTime']}")

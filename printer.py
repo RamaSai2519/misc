@@ -1,8 +1,12 @@
-from config import prodcalls_collection, prodschedules_collection
+from config import prodevents_collection
 
-calls = prodcalls_collection.count_documents({"type": "scheduled"})
-schedules = prodschedules_collection.count_documents({})
-successful_schedules = prodschedules_collection.count_documents({"status": "successful"})
-print(f"Total number of schedules: {schedules}")
-print(f"Total number of successful schedules: {successful_schedules}")
-print(f"Total number of scheduled calls: {calls}")
+events = list(prodevents_collection.find())
+
+for event in events:
+    phone_numbers = set()
+    for event in events:
+        phone_number = event['phoneNumber']
+        if phone_number in phone_numbers:
+            print(event)
+        else:
+            phone_numbers.add(phone_number)

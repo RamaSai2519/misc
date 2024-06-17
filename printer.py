@@ -1,12 +1,6 @@
-from config import prodevents_collection
+from config import prodcalls_collection
+from pprint import pprint
 
-events = list(prodevents_collection.find())
+doc = prodcalls_collection.find_one({"callId": "d1a4d508-80c4-4861-b319-814f66470a00"})
 
-for event in events:
-    phone_numbers = set()
-    for event in events:
-        phone_number = event['phoneNumber']
-        if phone_number in phone_numbers:
-            print(event)
-        else:
-            phone_numbers.add(phone_number)
+pprint(doc)

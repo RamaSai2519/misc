@@ -21,7 +21,7 @@ while True:
                     "expert": schedule_expert,
                     "initiatedTime": {
                         "$gte": schedule_time - timedelta(minutes=1),
-                        "$lte": schedule_time + timedelta(minutes=1),       
+                        "$lte": schedule_time + timedelta(minutes=1)
                     },
                 }
             )
@@ -38,7 +38,8 @@ while True:
                     {"_id": call["_id"]}, {"$set": {"type": call_type}}
                 )
                 print(
-                    f"Updated call type for call initiated at {call['initiatedTime']}"
+                    f"Updated call type for call initiated at {
+                        call['initiatedTime']}"
                 )
         else:
             if (schedule_time + timedelta(hours=5, minutes=30)) < datetime.now():
@@ -51,4 +52,4 @@ while True:
                     {"_id": schedule["_id"]}, {"$set": {"status": "pending"}}
                 )
 
-    sleep(30 * 60)  # Check every 30 minutes    
+    sleep(30 * 60)  # Check every 30 minutes

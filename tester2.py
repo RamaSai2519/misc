@@ -17,24 +17,24 @@ while True:
     document = {
         "callId": "f072938a-8235-48cc-ba09-dca020ccad40",
         "duration": "0:1:32",
-        "expert": experts[0],
+        "expert": experts[1],
         "failedReason": "",
-        "initiatedTime": datetime.datetime(2024, 6, 13, 14, 20, 20, 988000),
+        "initiatedTime": datetime.datetime(2024, 4, 10, 12, 47, 41, 486000),
         "recording_url": "https://sr.knowlarity.com/vr/fetchsound/?callid%3Df072938a-8235-48cc-ba09-dca020ccad40",
         "status": "successfull",
         "transferDuration": "00:1:23",
-        "user": ObjectId("660b893a9f28ee9c2c007d06"),
+        "user": ObjectId("66165b626159273a018e865c"),
     }
 
     time = datetime.datetime.now()
     prodcalls_collection.insert_one(document)
     print("Inserted @", time)
 
-    s(20)
+    s(5)
 
     prodcalls_collection.update_one(
         {"callId": "f072938a-8235-48cc-ba09-dca020ccad40",
-            "expert": experts[0]},
+            "expert": experts[1]},
         {"$set": {"status": "failed", "failedReason": "User not available"}})
     time = datetime.datetime.now()
     print("Updated @", time)
@@ -42,5 +42,5 @@ while True:
     s(5)
 
     prodcalls_collection.delete_one(
-        {"callId": "f072938a-8235-48cc-ba09-dca020ccad40", "expert": experts[0]})
+        {"callId": "f072938a-8235-48cc-ba09-dca020ccad40", "expert": experts[1]})
     print("Deleted")

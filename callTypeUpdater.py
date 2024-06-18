@@ -1,11 +1,19 @@
-from config import prodschedules_collection, prodcalls_collection
+from pymongo import MongoClient
 from datetime import timedelta, datetime
 from time import sleep
 
-# Find all schedules
-schedules = list(prodschedules_collection.find({"status": "pending"}))
+# Connect to the database
+client = MongoClient(
+    "mongodb+srv://sukoon_user:Tcks8x7wblpLL9OA@cluster0.o7vywoz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+db = client["test"]
+prodschedules_collection = db["schedules"]
+prodcalls_collection = db["calls"]
 
 while True:
+    # Find all schedules
+    schedules = list(prodschedules_collection.find({"status": "pending"}))
+
+    print("Checking for schedules...")
     for schedule in schedules:
         schedule_user = schedule["user"]
         schedule_expert = schedule["expert"]
@@ -52,4 +60,5 @@ while True:
                     {"_id": schedule["_id"]}, {"$set": {"status": "pending"}}
                 )
 
-    sleep(30 * 60)  # Check every 30 minutes
+    # Sleep for 2 minutes before checking again
+    sleep(60)

@@ -28,8 +28,3 @@ with open("users_context.csv", "r") as file:
             print(f"Updated context for {phone_number}")
         else:
             print(f"User with phone number {phone_number} not found")
-
-
-# client = MongoClient(
-#     "mongodb+srv://sukoon_user:Tcks8x7wblpLL9OA@cluster0.o7vywoz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-# )

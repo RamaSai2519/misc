@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 from datetime import timedelta, datetime
 from time import sleep
+import os
 
 # Connect to the database
-client = MongoClient(
-    "mongodb+srv://sukoon_user:Tcks8x7wblpLL9OA@cluster0.o7vywoz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+client = os.getenv("PROD_DB_URL")
 db = client["test"]
 prodschedules_collection = db["schedules"]
 prodcalls_collection = db["calls"]

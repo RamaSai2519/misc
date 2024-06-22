@@ -1,9 +1,9 @@
-from config import prod_timings_collection
+from config import prodtimings_collection
 from bson.objectid import ObjectId
 from datetime import datetime, timedelta
 from pprint import pprint
 
-schedules = list(prod_timings_collection.find(
+schedules = list(prodtimings_collection.find(
     {"expert": ObjectId("66046a3d42f04a057fa21034")}))
 
 

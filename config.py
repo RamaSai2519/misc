@@ -17,7 +17,7 @@ produsers_collection = prod_db["users"]
 prodexperts_collection = prod_db["experts"]
 prodmeta_collection = prod_db["meta"]
 prodevents_collection = prod_db["events"]
-prod_timings_collection = prod_db["timings"]
+prodtimings_collection = prod_db["timings"]
 
 devcalls_collection = dev_db["calls"]
 devcallsmeta_collection = dev_db["callsmeta"]

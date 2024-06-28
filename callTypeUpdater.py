@@ -4,7 +4,7 @@ from time import sleep
 import os
 
 # Connect to the database
-client = os.getenv("PROD_DB_URL")
+client = MongoClient(os.getenv("PROD_DB_URL"))
 db = client["test"]
 prodschedules_collection = db["schedules"]
 prodcalls_collection = db["calls"]

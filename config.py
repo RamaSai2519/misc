@@ -11,6 +11,7 @@ dev_client = MongoClient(os.getenv("DEV_DB_URL"))
 dev_db = dev_client["test"]
 
 
+prodeventconfigs_collection = prod_db["eventconfigs"]
 prodcallsmeta_collection = prod_db["callsmeta"]
 prodschedules_collection = prod_db["schedules"]
 prodexperts_collection = prod_db["experts"]

@@ -1,20 +1,11 @@
-from config import devcalls_collection
+from config import prodevents_collection
 import pandas as pd
 
-successful_calls = list(
-    devcalls_collection.find({"failedReason": "", "status": "successfull"})
+moved_users = list(
+    prodevents_collection.find({"user_id": {"$exists": True}})
 )
 
-data = []
-for call in successful_calls:
-    callId = call["callId"]
-    duration = call["duration"]
-    durationInSeconds = call["durationInSeconds"]
-    data.append(
-        {"callId": callId, "duration": duration, "durationInSeconds": durationInSeconds}
-    )
-
-df = pd.DataFrame(data)
+df = pd.DataFrame(moved_users)
 
 # Export the data to an Excel file
 df.to_excel("exported_data.xlsx", index=False)

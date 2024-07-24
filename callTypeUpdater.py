@@ -1,11 +1,9 @@
-from pymongo import MongoClient
+from config import prod_client
 from datetime import timedelta, datetime
 from time import sleep
-import os
 
 # Connect to the database
-client = MongoClient(os.getenv("PROD_DB_URL"))
-db = client["test"]
+db = prod_client["test"]
 prodschedules_collection = db["schedules"]
 prodcalls_collection = db["calls"]
 

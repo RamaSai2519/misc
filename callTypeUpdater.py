@@ -1,11 +1,6 @@
-from config import prod_client
+from config import prodcalls_collection, prodschedules_collection
 from datetime import timedelta, datetime
 from time import sleep
-
-# Connect to the database
-db = prod_client["test"]
-prodschedules_collection = db["schedules"]
-prodcalls_collection = db["calls"]
 
 while True:
     # Find all schedules

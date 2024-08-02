@@ -21,7 +21,7 @@ for record in data_dict:
     record['isBusy'] = False
     record['active'] = True
     record['isPaidUser'] = False
-    record['createdAt'] = datetime.now(pytz.utc)
+    record['createdDate'] = datetime.now(pytz.utc)
     record['numberOfCalls'] = 3
     record['numberOfGames'] = 0
     record['profileCompleted'] = False

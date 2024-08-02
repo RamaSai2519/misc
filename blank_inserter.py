@@ -37,3 +37,24 @@ for day in days:
             times[2]: "", times[3]: ""
         })
         print(f"Inserted timings of {expert["name"]} for {day}")
+
+# To insert all blanks
+# experts = list(prodexperts_collection.find({}))
+
+# for expert in experts:
+#     for day in days:
+#         timing_doc = prodtimings_collection.find_one({
+#             "expert": expert["_id"],
+#             "day": day
+#         })
+#         if not timing_doc:
+#             print(expert["name"], day)
+#             prodtimings_collection.insert_one({
+#                 "expert": expert["_id"],
+#                 "day": day,
+#                 "PrimaryStartTime": "",
+#                 "PrimaryEndTime": "",
+#                 "SecondaryStartTime": "",
+#                 "SecondaryEndTime": ""
+#             })
+#             print(f"Inserted blank timing for {expert['name']} on {day}")

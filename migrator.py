@@ -19,7 +19,7 @@ while True:
             "name": eventUser["name"] if "name" in eventUser else "",
             "phoneNumber": eventUser["phoneNumber"],
             "city": eventUser["city"] if "city" in eventUser else "",
-            "dateOfBirth": eventUser["dob"] if "dob" in eventUser else "",
+            "birthDate": eventUser["dob"] if "dob" in eventUser else "",
             "createdDate": eventUser["createdAt"],
             "isBusy": False,
             "active": True,

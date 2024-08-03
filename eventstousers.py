@@ -16,7 +16,7 @@ for user in event_users:
             "isBusy": False,
             "active": True,
             "createdDate": user["createdAt"],
-            "numberOfCalls": 10000,
+            "numberOfCalls": 3,
             "profileCompleted": True,
             "birthDate": user["dob"],
             "city": user["city"],

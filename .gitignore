@@ -1,6 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+
+# Secrets
 .env
-/contexts.csv
-exported_data.xlsx
-__pycache__/config.cpython-312.pyc
-/venv
-status_updater.py
+
+# Custom
+xxxx.csv

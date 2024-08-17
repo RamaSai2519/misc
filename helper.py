@@ -1,7 +1,3 @@
-from config import prodeventconfigs_collection
+from config import produsers_collection
 
-for event in prodeventconfigs_collection.find():
-    if "repeat" not in event:
-        prodeventconfigs_collection.update_one(
-            {"_id": event["_id"]}, {"$set": {"repeat": "once"}}
-        )
+produsers_collection.update_many({}, {"$set": {"wa_opt_out": False}})

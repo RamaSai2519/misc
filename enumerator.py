@@ -11,7 +11,8 @@ for user in users:
             context["context"] = ""
         elif "source" not in context:
             context["source"] = ""
-        prodmeta_collection.update_one({"user": ObjectId(user_id)}, {"$set": context})
+        prodmeta_collection.update_one(
+            {"user": ObjectId(user_id)}, {"$set": context})
         print(f"Updated context for {user['name']}")
     else:
         prodmeta_collection.insert_one(

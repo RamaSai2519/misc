@@ -15,7 +15,5 @@ for cat in categories:
     if cat["_id"] not in cats_in_use:
         prodcategories_collection.delete_one({"_id": cat["_id"]})
         print(f"Deleted {cat['name']}")
-    else:
-        print(f"Kept {cat['name']}")
 
 print("Done")

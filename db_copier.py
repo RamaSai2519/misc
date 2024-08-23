@@ -3,7 +3,7 @@ from config import prod_db, dev_db
 prod_collections = list(prod_db.list_collection_names())
 
 for collection_name in prod_collections:
-    if collection_name == "users":
+    if collection_name != "calls":
         prod_collection = prod_db.get_collection(collection_name)
         dev_collection = dev_db.get_collection(collection_name)
         dev_collection.drop()

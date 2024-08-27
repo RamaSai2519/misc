@@ -1,36 +1,45 @@
 import pytz
 import pandas as pd
+from pprint import pprint
 from datetime import datetime
 from config import produsers_collection as collection
 from config import prodmeta_collection as meta_collection
 
 # Read the data from the CSV file
-csv_file_path = 'xxxx.csv'
+csv_file_path = 'xx3.csv'
 data = pd.read_csv(csv_file_path)
 
 # Convert the DataFrame to a list of dictionaries
 data_dict = data.to_dict(orient='records')
 
 for record in data_dict:
+    user_dict = {}
+    if len(str(record["Phone"])) != 10:
+        print(f"Phone number {record["Phone"]} is invalid")
+        continue
     existing_user = collection.find_one(
-        {"phoneNumber": str(record["phoneNumber"])})
+        {"phoneNumber": str(record["Phone"])})
     if existing_user:
-        print(f"User with phone number {record["phoneNumber"]} already exists")
+        print(f"User with phone number {record["Phone"]} already exists")
         continue
 
-    record['isBusy'] = False
-    record['active'] = True
-    record['isPaidUser'] = False
-    record['createdDate'] = datetime.now(pytz.utc)
-    record['numberOfCalls'] = 3
-    record['numberOfGames'] = 0
-    record['profileCompleted'] = False
-    record['isBlocked'] = False
-    record["phoneNumber"] = str(record["phoneNumber"])
+    user_dict['name'] = str(record["First Name"] +
+                            record["Last Name"]).strip()
+    user_dict['email'] = str(record["Email"]).strip()
 
-    inserted_record = collection.insert_one(record)
+    user_dict['isBusy'] = False
+    user_dict['active'] = True
+    user_dict['isPaidUser'] = False
+    user_dict['createdDate'] = datetime.now(pytz.utc)
+    user_dict['numberOfCalls'] = 3
+    user_dict['numberOfGames'] = 0
+    user_dict['profileCompleted'] = False
+    user_dict['isBlocked'] = False
+    user_dict["phoneNumber"] = str(record["Phone"])
+
+    inserted_record = collection.insert_one(user_dict)
     inserted_id = inserted_record.inserted_id
-    print(f"Inserted {record["name"]} with ID: {inserted_id}")
+    print(f"Inserted {user_dict["name"]} with ID: {inserted_id}")
 
     meta_collection.insert_one({
         'user': inserted_id,
@@ -39,4 +48,4 @@ for record in data_dict:
         'userStatus': '',
         'remarks': '',
     })
-    print(f"Inserted meta data for {record["name"]}")
+    print(f"Inserted meta data for {user_dict["name"]}")

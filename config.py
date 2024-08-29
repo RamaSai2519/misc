@@ -10,6 +10,7 @@ prod_db = prod_client["test"]
 dev_client = MongoClient(os.getenv("DEV_DB_URL"))
 dev_db = dev_client["test"]
 
+FCM_SERVER_KEY = os.getenv("FCM_SERVER_KEY")
 
 prodeventconfigs_collection = prod_db["eventconfigs"]
 prodcategories_collection = prod_db["categories"]

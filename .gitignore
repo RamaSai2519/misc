@@ -21,3 +21,5 @@ env/
 # Custom
 xxxx.csv
 .DS_Store
+Pipfile
+Pipfile.lock

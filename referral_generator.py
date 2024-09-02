@@ -1,6 +1,8 @@
 from config import devusers_collection as users_collection
 from pymongo.collection import Collection
 import hashlib
+import random
+import string
 
 
 class Generator:
@@ -8,7 +10,8 @@ class Generator:
         self.users_collection: Collection = users_collection
 
     def generate_referral_code(self, name: str, phone_number: str) -> str:
-        raw_data = name + phone_number
+        salt = ''.join(random.choices(string.ascii_letters, k=6))
+        raw_data = name + phone_number + salt
         hash_object = hashlib.sha256(raw_data.encode())
         code = hash_object.hexdigest()[:8].upper()
         valid_code = self.validate_referral_code(code)
@@ -32,4 +35,4 @@ for user_data in users:
             {"$set": user_data}
         )
         print("Successfully generated referral code for" +
-              user_data['phoneNumber'])
+              user_data['refCode'])

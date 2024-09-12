@@ -12,6 +12,7 @@ dev_db = dev_client["test"]
 
 FCM_SERVER_KEY = os.getenv("FCM_SERVER_KEY")
 
+produserreferrals_collection = prod_db["userreferrals"]
 prodeventconfigs_collection = prod_db["eventconfigs"]
 prodcategories_collection = prod_db["categories"]
 prodcallsmeta_collection = prod_db["callsmeta"]
@@ -24,6 +25,7 @@ produsers_collection = prod_db["users"]
 prodmeta_collection = prod_db["meta"]
 
 
+devuserreferrals_collection = dev_db["userreferrals"]
 devcallsmeta_collection = dev_db["callsmeta"]
 devschedules_collection = dev_db["schedules"]
 devexperts_collection = dev_db["experts"]

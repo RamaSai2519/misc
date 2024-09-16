@@ -1,5 +1,4 @@
 from config import prodexperts_collection, prodtimings_collection
-from bson.objectid import ObjectId
 
 days = [
     "Monday",
@@ -51,9 +50,6 @@ for expert in experts:
             prodtimings_collection.insert_one({
                 "expert": expert["_id"],
                 "day": day,
-                "PrimaryStartTime": "",
-                "PrimaryEndTime": "",
-                "SecondaryStartTime": "",
-                "SecondaryEndTime": ""
+                times[0]: "", times[1]: "", times[2]: "", times[3]: ""
             })
             print(f"Inserted blank timing for {expert['name']} on {day}")

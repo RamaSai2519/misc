@@ -1,11 +1,14 @@
-from config import prodevents_collection
+from config import produsers_collection, prodcalls_collection
 import pandas as pd
 
-moved_users = list(
-    prodevents_collection.find({"user_id": {"$exists": True}})
-)
+users = list(produsers_collection.find())
+active_users = []
+for user in users:
+    if prodcalls_collection.find_one({"user": user["_id"]}):
+        active_users.append(user)
 
-df = pd.DataFrame(moved_users)
+
+df = pd.DataFrame(active_users)
 
 # Export the data to an Excel file
-df.to_excel("exported_data.xlsx", index=False)
+df.to_excel("callactiveusers.xlsx", index=False)

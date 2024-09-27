@@ -1,11 +1,9 @@
-import pytz
+import os
+import glob
 import pandas as pd
-from pprint import pprint
 from datetime import datetime
 from config import produsers_collection as collection
 from config import prodmeta_collection as meta_collection
-import os
-import glob
 
 # Get all CSV files in the 'files' folder of the working directory
 csv_files = glob.glob(os.path.join(os.getcwd(), 'files', '*.csv'))
@@ -31,10 +29,13 @@ for record in data_dict:
                             record["Last Name"]).strip()
     user_dict['email'] = str(record["Email"]).strip()
 
+    user_joined_date = datetime.strptime(
+        str(record["Registration Time"]), "%Y-%m-%d %H:%M:%S")
+
     user_dict['isBusy'] = False
     user_dict['active'] = True
     user_dict['isPaidUser'] = False
-    user_dict['createdDate'] = datetime.now(pytz.utc)
+    user_dict['createdDate'] = user_joined_date
     user_dict['numberOfCalls'] = 3
     user_dict['numberOfGames'] = 0
     user_dict['profileCompleted'] = False

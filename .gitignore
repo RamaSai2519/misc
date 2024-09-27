@@ -19,7 +19,7 @@ env/
 .env
 
 # Custom
-xxxx.csv
+*.csv
 .DS_Store
 Pipfile
 Pipfile.lock

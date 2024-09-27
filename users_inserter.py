@@ -4,10 +4,14 @@ from pprint import pprint
 from datetime import datetime
 from config import produsers_collection as collection
 from config import prodmeta_collection as meta_collection
+import os
+import glob
 
-# Read the data from the CSV file
-csv_file_path = 'xx3.csv'
-data = pd.read_csv(csv_file_path)
+# Get all CSV files in the 'files' folder of the working directory
+csv_files = glob.glob(os.path.join(os.getcwd(), 'files', '*.csv'))
+
+# Concatenate all CSV files together
+data = pd.concat([pd.read_csv(f) for f in csv_files], ignore_index=True)
 
 # Convert the DataFrame to a list of dictionaries
 data_dict = data.to_dict(orient='records')

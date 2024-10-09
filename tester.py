@@ -10,7 +10,7 @@ document = {
     "failedReason": "",
     "initiatedTime": datetime.datetime(2024, 9, 18, 11, 32, 29, 127000),
     "recording_url": "https://sr.knowlarity.com/vr/fetchsound/?callid%3D2f8eb444-09df-4b5e-ae48-ed2628f01e2d",
-    "status": "successfull",
+    "status": "successful",
     "transferDuration": "00:05:39",
     "user": ObjectId("66c828b7dff284cbc80223e7"),
 }

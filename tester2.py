@@ -21,7 +21,7 @@ while True:
         "failedReason": "",
         "initiatedTime": datetime.datetime(2024, 4, 10, 12, 47, 41, 486000),
         "recording_url": "https://sr.knowlarity.com/vr/fetchsound/?callid%3Df072938a-8235-48cc-ba09-dca020ccad40",
-        "status": "successfull",
+        "status": "successful",
         "transferDuration": "00:1:23",
         "user": ObjectId("66165b626159273a018e865c"),
     }

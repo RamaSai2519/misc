@@ -10,7 +10,7 @@ for callmeta in callsmeta:
         {"callId": callmeta["callId"]},
         {
             "$set": {
-                "Conversation Score": callmeta["Conversation Score"],
+                "conversationScore": callmeta["conversationScore"],
             }
         },
     )

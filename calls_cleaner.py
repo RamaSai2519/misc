@@ -1,13 +1,20 @@
-from config import prodmeta_collection
+from config import prodcalls_collection
 
-meta = list(prodmeta_collection.find({
-    "expert": {"$exists": True}
-}))
+query = {"failedReason": "user missed"}
+calls = list(prodcalls_collection.find(query))
 
-for m in meta:
-    if m["expert"] == "Unknown":
-        print(m["user"], m["expert"])
-        prodmeta_collection.update_one(
-            {"_id": m["_id"]},
-            {"$set": {"expert": "N/A"}}
-        )
+
+def duration_str_to_seconds(duration: str) -> int:
+    duration = duration.split(':')
+    hours, minutes, seconds = map(int, duration)
+    return hours * 3600 + minutes * 60 + seconds
+
+
+callIds = [call['callId'] for call in calls]
+
+update = prodcalls_collection.update_many(
+    {"callId": {"$in": callIds}}, {
+        "$set": {"status": "missed"}}
+)
+print(update)
+print(f"Updated {update.modified_count} calls")

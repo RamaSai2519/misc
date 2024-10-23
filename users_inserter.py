@@ -29,8 +29,11 @@ for record in data_dict:
                             record["Last Name"]).strip()
     user_dict['email'] = str(record["Email"]).strip()
 
-    user_joined_date = datetime.strptime(
-        str(record["Registration Time"]), "%Y-%m-%d %H:%M:%S")
+    try:
+        user_joined_date = datetime.strptime(
+            str(record["Registration Time"]), "%Y-%m-%d %H:%M:%S")
+    except:
+        user_joined_date = datetime.now()
 
     user_dict['isBusy'] = False
     user_dict['active'] = True
@@ -48,7 +51,7 @@ for record in data_dict:
 
     meta_collection.insert_one({
         'user': inserted_id,
-        'context': '',
+        'context': str(record["Webinar"]).strip(),
         'source': 'zoom',
         'userStatus': '',
         'remarks': '',

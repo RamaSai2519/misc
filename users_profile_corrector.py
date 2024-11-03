@@ -2,18 +2,20 @@ from config import produsers_collection as collection
 
 users = list(collection.find())
 
-true_users = 0
-false_users = 0
+true_users = []
+false_users = []
 
 for user in users:
     if "name" in user and "birthDate" in user and user["name"] not in ["", None] and user["birthDate"] not in ["", None]:
-        collection.update_one({"_id": user["_id"]}, {
-                              "$set": {"profileCompleted": True}})
-        true_users += 1
+        true_users.append(user["_id"])
     else:
-        collection.update_one({"_id": user["_id"]}, {
-                              "$set": {"profileCompleted": False}})
-        false_users += 1
+        false_users.append(user["_id"])
 
-print(f"True users: {true_users}")
-print(f"False users: {false_users}")
+true_update = collection.update_many({"_id": {"$in": true_users}}, {"$set": {"profileCompleted": True}})
+false_update = collection.update_many({"_id": {"$in": false_users}}, {"$set": {"profileCompleted": False}})
+
+print(f"Updated {true_update.modified_count} users with profileCompleted: True")
+print(f"Updated {false_update.modified_count} users with profileCompleted: False")
+
+print(f"True users: {len(true_users)}")
+print(f"False users: {len(false_users)}")

@@ -4,7 +4,8 @@ import pytz
 
 query = {"createdDate": {"$type": "string"}}
 
-users: list[dict] = collection.find(query, {"createdDate": 1, "phoneNumber": 1, "name": 1})
+users: list[dict] = collection.find(
+    query, {"createdDate": 1, "phoneNumber": 1, "name": 1})
 
 
 def string_to_date(doc: dict, field: str) -> date:

@@ -26,12 +26,12 @@ for record in data_dict:
         continue
 
     user_dict['name'] = str(record["First Name"] +
-                            record["Last Name"]).strip()
+                            " " + record["Last Name"]).strip()
     user_dict['email'] = str(record["Email"]).strip()
 
     try:
         user_joined_date = datetime.strptime(
-            str(record["Registration Time"]), "%Y-%m-%d %H:%M:%S")
+            str(record["Registration Time"]), "%m/%d/%Y %I:%M:%S %p")
     except:
         user_joined_date = datetime.now()
 
@@ -51,7 +51,7 @@ for record in data_dict:
 
     meta_collection.insert_one({
         'user': inserted_id,
-        'context': str(record["Webinar"]).strip(),
+        'context': str(record.get("Webinar", "")).strip(),
         'source': 'zoom',
         'userStatus': '',
         'remarks': '',

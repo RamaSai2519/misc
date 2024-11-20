@@ -14,6 +14,7 @@ FCM_SERVER_KEY = os.getenv("FCM_SERVER_KEY")
 
 produserreferrals_collection = prod_db["userreferrals"]
 prodeventconfigs_collection = prod_db["eventconfigs"]
+prodpayments_collection = prod_db["userpayments"]
 prodcategories_collection = prod_db["categories"]
 prodcallsmeta_collection = prod_db["callsmeta"]
 prodschedules_collection = prod_db["schedules"]

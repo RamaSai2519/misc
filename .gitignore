@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-
 # Distribution / packaging
 dist/
 build/
@@ -21,6 +18,4 @@ env/
 # Custom
 *.csv
 .DS_Store
-Pipfile
-Pipfile.lock
-statusUpdater.py
+*.lock

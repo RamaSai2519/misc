@@ -71,6 +71,10 @@ def generate_prompt(task_or_prompt: str):
     return completion.choices[0].message.content
 
 
-output = generate_prompt()
+prompt = f"""
 
-# print(output)
+"""
+
+output = generate_prompt(prompt)
+
+print(output)

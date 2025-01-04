@@ -6,7 +6,8 @@ true_users = []
 false_users = []
 
 for user in users:
-    if "name" in user and "birthDate" in user and "city" in user and user["name"] not in ["", None] and user["birthDate"] not in ["", None] and user["city"] not in ["", None]:
+    fields = ["name", "birthDate", "city"]
+    if all(field in user and user[field] not in ["", None] for field in fields):
         true_users.append(user["_id"])
     else:
         false_users.append(user["_id"])

@@ -1,0 +1,3 @@
+[submodule "shared"]
+	path = shared
+	url = https://github.com/SukoonUnlimited/shared_sukoon.git

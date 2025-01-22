@@ -13,6 +13,7 @@ pillow = "*"
 tabulate = "*"
 requests = "*"
 openai = "*"
+slack-sdk = "*"
 
 [dev-packages]
 

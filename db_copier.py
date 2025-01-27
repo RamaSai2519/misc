@@ -1,4 +1,7 @@
-from config import prod_db, dev_db
+from config import prod_client, dev_client
+
+prod_db = prod_client["users"]
+dev_db = dev_client["users"]
 
 prod_collections = list(prod_db.list_collection_names())
 

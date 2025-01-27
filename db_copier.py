@@ -3,7 +3,7 @@ from config import prod_client, dev_client
 dbs = prod_client.list_database_names()
 
 for db_name in dbs:
-    if db_name not in ['']:
+    if db_name in ['sukoon', 'embeddings']:
         prod_db = prod_client[db_name]
         dev_db = dev_client[db_name]
         prod_collections = list(prod_db.list_collection_names())
@@ -13,7 +13,10 @@ for db_name in dbs:
                 dev_collection = dev_db.get_collection(collection)
                 dev_collection.drop()
                 print(f'Copying {collection} from prod to dev')
-                docs = list(prod_collection.find().sort('_id', -1))
+                docs = prod_collection.find().sort('_id', -1)
+                if 'user' not in collection:
+                    docs.limit(1000)
+                    docs = list(docs)
                 if docs and len(docs) > 0:
                     update = dev_collection.insert_many(docs)
                     print(f'Copied {len(docs)} docs to {collection} in dev')

@@ -37,10 +37,7 @@ for record in data_dict:
 
     user_dict['isBusy'] = False
     user_dict['active'] = True
-    user_dict['isPaidUser'] = False
     user_dict['createdDate'] = user_joined_date
-    user_dict['numberOfCalls'] = 3
-    user_dict['numberOfGames'] = 0
     user_dict['profileCompleted'] = False
     user_dict['isBlocked'] = False
     user_dict["phoneNumber"] = str(record["Phone"])

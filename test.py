@@ -1,14 +1,31 @@
+from shared.db.users import get_user_collection
+from shared.configs import CONFIG as config
+from shared.models.common import Common
+from datetime import datetime
+import requests
 
+users_collection = get_user_collection()
 
-duration = 1226
+query = {
+    'name': {'$exists': True, '$ne': ''},
+    '$or': [
+        # {'birthDate': {'$exists': False}},
+        # {'birthDate': {'$eq': None}},
+        {'city': {'$exists': False}},
+        {'city': {'$eq': None}}
+    ]
+}
 
+user_phones = users_collection.distinct('phoneNumber', query)
 
-def seconds_to_duration_str() -> str:
-    seconds = int(duration)
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
-    seconds = seconds % 60
-    return f'{hours:02}:{minutes:02}:{seconds:02}'
+url = config.URL + '/actions/user'
 
-
-print(seconds_to_duration_str())
+for phone in user_phones:
+    payload = {
+        'phoneNumber': phone,
+        # 'birthDate': datetime(1900, 1, 1),
+        'city': 'unknown'
+    }
+    payload = Common.jsonify(payload)
+    response = requests.post(url, json=payload)
+    print(response.text)

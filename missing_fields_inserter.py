@@ -12,6 +12,7 @@ query = {
         # {'birthDate': {'$exists': False}},
         # {'birthDate': {'$eq': None}},
         {'city': {'$exists': False}},
+        
         {'city': {'$eq': None}}
     ]
 }

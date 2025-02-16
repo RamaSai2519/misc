@@ -1,11 +1,13 @@
-import sys
-sys.path.append('/Users/ramasathyasai/repos/misc')
-from shared.db.base import Database
 from typing import Dict, Any
+import sys
+import os
+print(os.getcwd())
+sys.path.append(os.getcwd())
 
 
 class EmailDatabase:
     def __init__(self, db_name: str = 'test', collection_name: str = 'emails') -> None:
+        from shared.db.base import Database
         self.client = Database().client
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]

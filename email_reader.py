@@ -1,9 +1,9 @@
-import imaplib
 import email
+import imaplib
 from email.message import Message
-from email.header import decode_header
 from typing import List, Dict, Any
 from shared.db.base import Database
+from email.header import decode_header
 
 
 class EmailClient:

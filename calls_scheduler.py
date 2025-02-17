@@ -4,9 +4,11 @@ from shared.db.users import get_user_collection
 from shared.models.constants import TimeFormats
 from shared.configs import CONFIG as config
 from datetime import datetime, timedelta
+from shared.models.common import Common
 from bson import ObjectId
 import pandas as pd
 import requests
+import pytz
 
 file = 'calls_to_be.csv'
 
@@ -59,8 +61,10 @@ def get_user_id(phone_number: str) -> ObjectId:
     return user['_id']
 
 
-def get_expert_id(name: str) -> str:
-    expert = experts_collection.find_one({'name': name})
+def get_expert_id(number: str) -> str:
+    expert = experts_collection.find_one({'phoneNumber': number})
+    if expert.get('type', 'saarthi') != 'saarthi':
+        return None
     return str(expert['_id'])
 
 
@@ -88,14 +92,19 @@ def get_slots(expert_id: str, job_time: datetime):
 
 
 for call in calls_list:
-    user_name = str(call['name'])
-    user_number = str(call['phoneNumber'])
-    sarathi_name = str(call['sarathi']).strip()
-    expert_id = get_expert_id(sarathi_name)
+    user_number = str(call['user'])
+    sarathi_number = str(call['saarthi']).strip()
+    expert_id = get_expert_id(sarathi_number)
+    if not expert_id:
+        print(f'No expert found for {sarathi_number}')
+        continue
     user_id = get_user_id(user_number)
 
     user_id = str(user_id)
-    start_time = datetime(2025, 2, 9, 0, 0, 0)
+    start_time = datetime(2025, 2, 18, 0, 0, 0, tzinfo=pytz.utc)
+    current_time = Common.get_current_utc_time()
+    if start_time < current_time:
+        start_time = current_time
     while True:
         slots = get_slots(expert_id, start_time)
         max = len(slots)
@@ -107,7 +116,7 @@ for call in calls_list:
                     slot['datetime'], TimeFormats.ANTD_TIME_FORMAT)
                 code = schedule_call(user_id, expert_id, job_time)
                 if code == 200:
-                    print(f'Scheduled for {user_name} with {sarathi_name}')
+                    print(f'Scheduled for {user_number} with {sarathi_number}')
                     break
             if i == max:
                 start_time += timedelta(days=1)

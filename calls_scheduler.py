@@ -9,6 +9,7 @@ from bson import ObjectId
 import pandas as pd
 import requests
 import pytz
+import time
 
 file = 'calls_to_be.csv'
 
@@ -64,6 +65,8 @@ def get_user_id(phone_number: str) -> ObjectId:
 def get_expert_id(number: str) -> str:
     expert = experts_collection.find_one({'phoneNumber': number})
     if expert.get('type', 'saarthi') != 'saarthi':
+        print(f'Expert {number} is not a saarthi')
+        time.sleep(5)
         return None
     return str(expert['_id'])
 

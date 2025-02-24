@@ -15,6 +15,7 @@ requests = "*"
 openai = "*"
 slack-sdk = "*"
 flask-jwt-extended = "*"
+firebase-admin = "*"
 
 [dev-packages]
 

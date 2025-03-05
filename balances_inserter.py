@@ -32,6 +32,7 @@ class Process:
             plan = free_plan
             if user['_id'] not in balances:
                 plan['user'] = user['_id']
+                print(user['_id'])
                 plan.pop('_id', None)
                 self.balances_collection.insert_one(plan)
                 counter += 1

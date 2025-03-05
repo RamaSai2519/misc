@@ -76,7 +76,7 @@ def get_slots(expert_id: str, job_time: datetime):
     payload = {
         'expert': expert_id,
         'datetime': job_time.strftime(TimeFormats.ANTD_TIME_FORMAT),
-        'duration': 30
+        'duration': 60
     }
     response = requests.post(url, json=payload)
     slots = response.json()

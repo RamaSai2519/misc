@@ -1,7 +1,8 @@
 import email
 import imaplib
-from email.message import Message
 from typing import List
+from datetime import datetime
+from email.message import Message
 
 
 class EmailClient:
@@ -12,8 +13,10 @@ class EmailClient:
         self.mail = imaplib.IMAP4_SSL(self.server)
         self.mail.login(self.username, self.password)
 
-    def search_emails(self, search_criteria: str) -> List[bytes]:
+    def search_emails(self, search_criteria: str = 'ALL') -> List[bytes]:
         self.mail.select("inbox")
+        today = datetime.today().strftime("%d-%b-%Y")
+        search_criteria = f'{search_criteria} SINCE "{today}"'
         status, messages = self.mail.search(None, search_criteria)
         return messages[0].split()
 

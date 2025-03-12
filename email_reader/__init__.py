@@ -1,6 +1,7 @@
 from email_client import EmailClient
 from email_parser import EmailParser
 from email_database import EmailDatabase
+from details_extractor import DetailsExtractor
 
 
 def main() -> None:
@@ -27,8 +28,9 @@ def main() -> None:
     for email_id in email_ids:
         msg = email_client.fetch_email(email_id)
         email_data = EmailParser.parse_email(msg)
+        extractor = DetailsExtractor(email_data.get('body', ''))
+        details = extractor.extract_details()
         email_db.insert_email(email_data)
-
     email_client.logout()
     email_db.close()
 

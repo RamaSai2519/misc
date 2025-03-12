@@ -14,7 +14,6 @@ import time
 
 class Scheduler:
     def __init__(self, file: str) -> None:
-        self.file = file
         self.calls_df = pd.read_csv(file)
         self.calls_list = self.calls_df.to_dict(orient='records')
         self.users_collection = get_user_collection()
@@ -64,10 +63,12 @@ class Scheduler:
 
     def get_user_id(self, phone_number: str) -> ObjectId:
         user = self.users_collection.find_one({'phoneNumber': phone_number})
-        return user['_id']
+        return None if not user else str(user['_id'])
 
     def get_expert_id(self, number: str) -> str:
         expert = self.experts_collection.find_one({'phoneNumber': number})
+        if not expert:
+            return None
         if expert.get('type', 'saarthi') != 'saarthi':
             print(f'Expert {number} is not a saarthi')
             time.sleep(5)
@@ -98,15 +99,14 @@ class Scheduler:
 
     def run(self) -> None:
         for call in self.calls_list:
-            user_number = str(call['user'])
+            user_number = str(call['user']).strip()
             sarathi_number = str(call['saarthi']).strip()
             expert_id = self.get_expert_id(sarathi_number)
-            if not expert_id:
-                print(f'No expert found for {sarathi_number}')
-                continue
             user_id = self.get_user_id(user_number)
+            if not expert_id or not user_id:
+                print('Invalid user or expert')
+                continue
 
-            user_id = str(user_id)
             start_time = datetime(2025, 2, 18, 0, 0, 0, tzinfo=pytz.utc)
             current_time = Common.get_current_utc_time()
             if start_time < current_time:

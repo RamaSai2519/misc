@@ -1,5 +1,6 @@
-from config import produsers_collection as collection
+from shared.db.users import get_user_collection
 
+collection = get_user_collection()
 users = list(collection.find())
 
 true_users = []

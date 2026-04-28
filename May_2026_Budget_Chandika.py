@@ -6,7 +6,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_RIGHT, TA_CENTER
 
 W, H = A4
-OUT = "/mnt/user-data/outputs/May_2026_Budget_Chandika.pdf"
+OUT = "May_2026_Budget_Chandika.pdf"
 
 doc = SimpleDocTemplate(OUT, pagesize=A4,
     leftMargin=20*mm, rightMargin=20*mm,
